@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  *
  * See the NOTICE file distributed with this work for additional
@@ -19,17 +21,58 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *
 -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.xwiki.platform.applications</groupId>
-    <artifactId>xwiki-applications</artifactId>
-    <version>35</version>
+   <groupId>org.xwiki.commons</groupId>
+   <artifactId>xwiki-commons-pom</artifactId>
+   <version>4.1</version>
   </parent>
   <groupId>org.xwiki.contrib</groupId>
-  <artifactId>xwiki-application-todolist-application</artifactId>
-  <version>VERSION</version>
+  <artifactId>application-todolist</artifactId>
   <packaging>xar</packaging>
-  <name>XWiki Application - TodoList Application</name>
-  <description>TodoList Application using emberjs</description>
+  <name>TodoList Application</name>
+  <version>1.0-SNAPSHOT</version>
+  <description>TodoList application with easy JS interface to edit the todos using the emberjs framework.</description>
+  <developers>
+    <developer>
+      <id>ldubost</id>
+      <name>Ludovic Dubost</name>
+      <organization>XWiki SAS</organization>
+    </developer>
+  </developers>
+  <properties>
+    <xwiki.extension.name>TodoList Application</xwiki.extension.name>
+  </properties>
+  <build>
+    <!-- Needed to add support for the XAR packaging -->
+    <extensions>
+      <extension>
+        <groupId>org.xwiki.commons</groupId>
+        <artifactId>xwiki-commons-tool-xar-handlers</artifactId>
+        <version>${commons.version}</version>
+      </extension>
+    </extensions>
+    <plugins>
+      <!-- The XAR packaging uses the XAR plugin and thus we need to define what version to use -->
+      <plugin>
+        <groupId>org.xwiki.commons</groupId>
+        <artifactId>xwiki-commons-tool-xar-plugin</artifactId>
+        <version>${commons.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+  <scm>
+    <connection>scm:git:git://github.com/xwiki-contrib/application-todolist.git</connection>
+    <developerConnection>scm:git:git@github.com:xwiki-contrib/application-todolist.git</developerConnection>
+    <url>https://github.com/xwiki-contrib/application-todolist</url>
+  </scm>
+  <distributionManagement>
+    <repository>
+      <id>xwiki-staging</id>
+      <name>XWiki Staging Repository</name>
+      <url>http://nexus.xwiki.org/nexus/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 </project>
