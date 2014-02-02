@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xwikidoc>
+<web>TodoLists</web>
+<name>TodoListsGroovy</name>
+<language></language>
+<defaultLanguage>en</defaultLanguage>
+<translation>0</translation>
+<parent></parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1388530800000</creationDate>
+<date>1388530800000</date>
+<contentUpdateDate>1388530800000</contentUpdateDate>
+<version>1.1</version>
+<title></title>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>false</minorEdit>
+<syntaxId>xwiki/2.1</syntaxId>
+<hidden>false</hidden>
+<content>/*
+#*
+TodoMacroGroovy
+
+*#
+*/
+
+import org.xwiki.rendering.block.*;
+import org.xwiki.rendering.renderer.*;
+import org.xwiki.rendering.syntax.*;
+import org.xwiki.rendering.parser.*;
+import org.xwiki.rendering.renderer.printer.DefaultWikiPrinter;
+import org.xwiki.rendering.renderer.printer.WikiPrinter;
+import com.xpn.xwiki.web.Utils;
+import com.xpn.xwiki.api.*;
+import java.util.*;
+import java.lang.reflect.*;
+import groovy.json.JsonSlurper;
+
+
+public class TodoListGroovy {
+   def xwiki;
+   def context;
+
+   public setContext(context, xwiki) {
+      this.xwiki = xwiki;
+      this.context = context;
+   }
+
+   public int updateDocumentXDOM(xdom, newcontent, append) {
+      def xdomchanged = false;
+      // Finding Macro Block
+      List&lt;MacroBlock&gt; macroBlocks = xdom.getChildrenByType(MacroBlock.class, true);
+      for (MacroBlock macroBlock : macroBlocks) {
+        def id = macroBlock.getId();
+        if (id.equals("todolist")) {
+     
+        def currentContent = macroBlock.getContent();   
+        currentContent = (currentContent==null) ? "" : currentContent;
+        
+        System.out.println("found macro");
+        boolean done = true;
+
+        if ((currentContent!=newcontent) || append) {
+             // System.out.println("priority different changing it");
+             newcontent = (append) ? currentContent + newcontent :  newcontent;
+
+             // We need to use reflection until this exists: macroBlock.setContent(newcontent);
+             Field field = macroBlock.getClass().getDeclaredField("content");
+             field.setAccessible(true);
+             field.set(macroBlock, newcontent);
+             return 1;
+             done = true;
+        }
+       }       
+     }
+     return 0;
+   }
+
+   public String getContentFromXDOM(xdom) {
+     WikiPrinter printer = new DefaultWikiPrinter();
+     BlockRenderer renderer = (BlockRenderer) Utils.getComponent(BlockRenderer.class, Syntax.XWIKI_2_0.toIdString());
+     renderer.render(xdom, printer);
+     return printer.toString();
+   }
+
+   public XDOM getXDOMFromContent(content) {
+     Parser parser = (Parser) Utils.getComponent(Parser.class, Syntax.XWIKI_2_0.toIdString());
+     return parser.parse(new StringReader(content));
+   }
+ 
+   public int updateDocument(doc, newcontent) {
+      def slurper = new JsonSlurper()
+      def jsonobj = slurper.parseText(newcontent)
+      def finalcontent = ""
+      for (item in jsonobj) {
+        finalcontent += item.title + "|" + (item.isCompleted ? "1" : "0") + "\r\n";
+      }
+
+      XDOM xdom = (doc == null) ? null : doc.getDocument().getXDOM();
+      xdom = (xdom == null) ? null : xdom.clone();
+       
+      def result = updateDocumentXDOM(xdom, finalcontent, false);
+
+      // we updated the xdom, apply it
+      if (result!=0) {
+         doc.setContent(getContentFromXDOM(xdom));
+         return result;
+      }
+ 
+      return 0;
+   }
+
+   public int addToDocument(doc, newcontent) {
+      def slurper = new JsonSlurper()
+      def item = slurper.parseText(newcontent)
+      def finalcontent = ""
+      finalcontent += item.title + "|" + (item.isCompleted ? "1" : "0") + "\r\n";
+
+      XDOM xdom = (doc == null) ? null : doc.getDocument().getXDOM();
+      xdom = (xdom == null) ? null : xdom.clone();
+       
+      def result = updateDocumentXDOM(xdom, finalcontent, true);
+
+      // we updated the xdom, apply it
+      if (result!=0) {
+         doc.setContent(getContentFromXDOM(xdom));
+         return result;
+      }
+ 
+      return 0;
+   }
+  public List getTodos(Document doc) {
+      def counter = 0;
+      XDOM xdom = (doc == null) ? null : doc.getDocument().getXDOM();
+      xdom = (xdom == null) ? null : xdom.clone();
+      def res = getTodosFromXDOM(xdom);
+      def list = res.split("\r\n")
+      def list2 = new ArrayList();
+      for (item in list) {
+        counter++;
+        def map = new HashMap();
+        map.put("id", counter);
+        map.put("title", "")
+        map.put("isCompleted", "false")
+        def item2 = item.split("\\|")
+        if (item2.length&gt;1)
+         map.put("isCompleted", ((item2[1]=="1") ? true : false))
+        if (item2.length&gt;0)
+         map.put("title", item2[0])
+        list2.add(map);
+      }
+    return list2;
+  }
+
+  public String getTodosFromXDOM(xdom) {      
+      // Finding Macro Block
+      List&lt;MacroBlock&gt; macroBlocks = xdom.getChildrenByType(MacroBlock.class, true);
+      for (MacroBlock macroBlock : macroBlocks) {
+        def id = macroBlock.getId();
+        if (id.equals("todolist")) {
+            return macroBlock.getContent(); 
+        }
+      }  
+      return "";
+   }
+}</content></xwikidoc>

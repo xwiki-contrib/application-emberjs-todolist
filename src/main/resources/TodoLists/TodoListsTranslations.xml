@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xwikidoc>
+<web>TodoLists</web>
+<name>TodoListsTranslations</name>
+<language></language>
+<defaultLanguage></defaultLanguage>
+<translation>0</translation>
+<parent>TodoListsClass</parent>
+<creator>XWiki.Admin</creator>
+<author>XWiki.Admin</author>
+<customClass></customClass>
+<contentAuthor>XWiki.Admin</contentAuthor>
+<creationDate>1388530800000</creationDate>
+<date>1388530800000</date>
+<contentUpdateDate>1388530800000</contentUpdateDate>
+<version>1.1</version>
+<title></title>
+<defaultTemplate></defaultTemplate>
+<validationScript></validationScript>
+<comment></comment>
+<minorEdit>false</minorEdit>
+<syntaxId>xwiki/2.1</syntaxId>
+<hidden>true</hidden>
+<object>
+<class>
+<name>XWiki.TranslationDocumentClass</name>
+<customClass></customClass>
+<customMapping></customMapping>
+<defaultViewSheet></defaultViewSheet>
+<defaultEditSheet></defaultEditSheet>
+<defaultWeb></defaultWeb>
+<nameField></nameField>
+<validationScript></validationScript>
+<scope>
+<cache>0</cache>
+<disabled>0</disabled>
+<displayType>select</displayType>
+<multiSelect>0</multiSelect>
+<name>scope</name>
+<number>1</number>
+<prettyName>Scope</prettyName>
+<relationalStorage>0</relationalStorage>
+<separator> </separator>
+<separators> ,|</separators>
+<size>1</size>
+<unmodifiable>0</unmodifiable>
+<values>GLOBAL|WIKI|USER|ON_DEMAND</values>
+<classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+</scope>
+</class>
+<name>TodoLists.TodoListsTranslations</name>
+<number>0</number>
+<className>XWiki.TranslationDocumentClass</className>
+<guid>4815227b-0841-4c47-95fe-cdd0a82831d4</guid>
+<property>
+<scope>ON_DEMAND</scope>
+</property>
+</object>
+<content># Class fields
+TodoLists.TodoListsClass_title1=Title
+TodoLists.TodoListsClass_manager=Manager
+TodoLists.TodoListsClass_status=Status
+TodoLists.TodoListsClass_status_cancelled=cancelled
+TodoLists.TodoListsClass_status_active=active
+TodoLists.TodoListsClass_status_completed=completed
+TodoLists.TodoListsClass_content1=Content
+
+# Live table generic keys
+todolists.livetable.doc.title=Page title
+todolists.livetable.doc.name=Page name
+todolists.livetable.doc.space=Space
+todolists.livetable.doc.fullname=Page full name
+todolists.livetable.doc.author=Last Author
+todolists.livetable.doc.creator=Creator
+todolists.livetable.doc.date=Update date
+todolists.livetable.doc.creationDate=Creation date
+todolists.livetable._avatar=Avatar
+todolists.livetable._images=Images
+todolists.livetable._attachments=Attachments
+todolists.livetable._actions=Actions
+todolists.livetable._actions.edit=Edit
+todolists.livetable._actions.delete=Delete
+todolists.livetable.emptyvalue=-
+
+# Live table specific keys
+todolists.livetable.title1=Title
+todolists.livetable.manager=Manager
+todolists.livetable.status=Status
+todolists.livetable.content1=Content
+
+todolists.all=All
+todolists.active=Active
+todolists.completed=Completed
+todolists.itemsleft={0} items left
+todolists.clearcompleted=Clear completed
+todolists.whatneedstobedone=What needs to be done ?
+</content></xwikidoc>
