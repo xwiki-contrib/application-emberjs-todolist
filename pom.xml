@@ -30,9 +30,9 @@
    <version>4.1</version>
   </parent>
   <groupId>org.xwiki.contrib</groupId>
-  <artifactId>application-todolist</artifactId>
+  <artifactId>application-emberjs-todolist</artifactId>
   <packaging>xar</packaging>
-  <name>TodoList Application</name>
+  <name>TodoList Application using emberjs</name>
   <version>1.0-SNAPSHOT</version>
   <description>TodoList application with easy JS interface to edit the todos using the emberjs framework.</description>
   <developers>
@@ -42,9 +42,6 @@
       <organization>XWiki SAS</organization>
     </developer>
   </developers>
-  <properties>
-    <xwiki.extension.name>TodoList Application</xwiki.extension.name>
-  </properties>
   <build>
     <!-- Needed to add support for the XAR packaging -->
     <extensions>
@@ -64,9 +61,9 @@
     </plugins>
   </build>
   <scm>
-    <connection>scm:git:git://github.com/xwiki-contrib/application-todolist.git</connection>
-    <developerConnection>scm:git:git@github.com:xwiki-contrib/application-todolist.git</developerConnection>
-    <url>https://github.com/xwiki-contrib/application-todolist</url>
+    <connection>scm:git:git://github.com/xwiki-contrib/application-emberjs-todolist.git</connection>
+    <developerConnection>scm:git:git@github.com:xwiki-contrib/application-emberjs-todolist.git</developerConnection>
+    <url>https://github.com/xwiki-contrib/application-emberjs-todolist</url>
   </scm>
   <distributionManagement>
     <repository>
