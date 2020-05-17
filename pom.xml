@@ -35,6 +35,9 @@
   <name>TodoList Application using emberjs</name>
   <version>1.2-SNAPSHOT</version>
   <description>TodoList application with easy JS interface to edit the todos using the emberjs framework.</description>
+  <properties>
+    <xwiki.issueManagement.jira.id>XTODOEMBER</xwiki.issueManagement.jira.id>
+  </properties>
   <developers>
     <developer>
       <id>ldubost</id>
@@ -60,6 +63,11 @@
       </plugin>
     </plugins>
   </build>
+  <url>https://extensions.xwiki.org/xwiki/bin/view/Extension/TodoList%20Application%20using%20emberjs</url>
+  <issueManagement>
+    <system>jira</system>
+    <url>https://jira.xwiki.org/browse/XTODOEMBER</url>
+  </issueManagement>
   <scm>
     <connection>scm:git:git://github.com/xwiki-contrib/application-emberjs-todolist.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/application-emberjs-todolist.git</developerConnection>
