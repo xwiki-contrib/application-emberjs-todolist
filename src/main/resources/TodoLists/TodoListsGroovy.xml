@@ -17,7 +17,7 @@
   <title/>
   <comment/>
   <minorEdit>false</minorEdit>
-  <syntaxId>xwiki/2.1</syntaxId>
+  <syntaxId>plain/1.0</syntaxId>
   <hidden>true</hidden>
   <content>/*
 #*
@@ -56,24 +56,22 @@ public class TodoListGroovy {
         def id = macroBlock.getId();
         if (id.equals("todolist")) {
      
-        def currentContent = macroBlock.getContent();   
+        def currentContent = macroBlock.getContent();
         currentContent = (currentContent==null) ? "" : currentContent;
         
-        System.out.println("found macro");
+        // System.out.println("found macro");
         boolean done = true;
 
         if ((currentContent!=newcontent) || append) {
              // System.out.println("priority different changing it");
              newcontent = (append) ? currentContent + newcontent :  newcontent;
 
-             // We need to use reflection until this exists: macroBlock.setContent(newcontent);
-             Field field = macroBlock.getClass().getDeclaredField("content");
-             field.setAccessible(true);
-             field.set(macroBlock, newcontent);
+             def replacementBlock = new MacroBlock(id, macroBlock.getParameters(), newcontent, macroBlock.isInline())
+             macroBlock.getParent().replaceChild(replacementBlock, macroBlock)
              return 1;
              done = true;
         }
-       }       
+       }
      }
      return 0;
    }
@@ -89,7 +87,7 @@ public class TodoListGroovy {
      Parser parser = (Parser) Utils.getComponent(Parser.class, Syntax.XWIKI_2_0.toIdString());
      return parser.parse(new StringReader(content));
    }
- 
+
    public int updateDocument(doc, newcontent) {
       def slurper = new JsonSlurper()
       def jsonobj = slurper.parseText(newcontent)
@@ -100,7 +98,7 @@ public class TodoListGroovy {
 
       XDOM xdom = (doc == null) ? null : doc.getDocument().getXDOM();
       xdom = (xdom == null) ? null : xdom.clone();
-       
+
       def result = updateDocumentXDOM(xdom, finalcontent, false);
 
       // we updated the xdom, apply it
@@ -108,7 +106,7 @@ public class TodoListGroovy {
          doc.setContent(getContentFromXDOM(xdom));
          return result;
       }
- 
+
       return 0;
    }
 
@@ -120,7 +118,7 @@ public class TodoListGroovy {
 
       XDOM xdom = (doc == null) ? null : doc.getDocument().getXDOM();
       xdom = (xdom == null) ? null : xdom.clone();
-       
+
       def result = updateDocumentXDOM(xdom, finalcontent, true);
 
       // we updated the xdom, apply it
@@ -128,7 +126,7 @@ public class TodoListGroovy {
          doc.setContent(getContentFromXDOM(xdom));
          return result;
       }
- 
+
       return 0;
    }
   public List getTodos(Document doc) {
@@ -154,15 +152,15 @@ public class TodoListGroovy {
     return list2;
   }
 
-  public String getTodosFromXDOM(xdom) {      
+  public String getTodosFromXDOM(xdom) {
       // Finding Macro Block
-      List&lt;MacroBlock&gt; macroBlocks = xdom.getChildrenByType(MacroBlock.class, true);
+      List&lt;MacroBlock&gt; macroBlocks = xdom?.getChildrenByType(MacroBlock.class, true);
       for (MacroBlock macroBlock : macroBlocks) {
         def id = macroBlock.getId();
         if (id.equals("todolist")) {
-            return macroBlock.getContent(); 
+            return macroBlock.getContent();
         }
-      }  
+      }
       return "";
    }
 }</content>
