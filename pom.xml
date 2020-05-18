@@ -33,7 +33,7 @@
   <artifactId>application-emberjs-todolist</artifactId>
   <packaging>xar</packaging>
   <name>TodoList Application using emberjs</name>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <description>TodoList application with easy JS interface to edit the todos using the emberjs framework.</description>
   <properties>
     <xwiki.issueManagement.jira.id>XTODOEMBER</xwiki.issueManagement.jira.id>
@@ -72,7 +72,7 @@
     <connection>scm:git:git://github.com/xwiki-contrib/application-emberjs-todolist.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/application-emberjs-todolist.git</developerConnection>
     <url>https://github.com/xwiki-contrib/application-emberjs-todolist</url>
-    <tag>HEAD</tag>
+    <tag>application-emberjs-todolist-1.2</tag>
   </scm>
   <distributionManagement>
     <repository>
