@@ -25,15 +25,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-   <groupId>org.xwiki.contrib</groupId>
-   <artifactId>parent-platform</artifactId>
-   <version>7.4-15</version>
+   <groupId>org.xwiki.commons</groupId>
+   <artifactId>xwiki-commons-pom</artifactId>
+   <version>4.1</version>
   </parent>
   <groupId>org.xwiki.contrib</groupId>
   <artifactId>application-emberjs-todolist</artifactId>
   <packaging>xar</packaging>
   <name>TodoList Application using emberjs</name>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.2-SNAPSHOT</version>
   <description>TodoList application with easy JS interface to edit the todos using the emberjs framework.</description>
   <properties>
     <xwiki.issueManagement.jira.id>XTODOEMBER</xwiki.issueManagement.jira.id>
